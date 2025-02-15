@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import heroImage from '../assets/Hero-image.jpg'
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, quis quos cum doloremque ea quo distinctio in perferendis, ducimus delectus unde sint impedit tempore officiis maiores porro autem! Error, incidunt.</p>
         <div className='mt-5'><Link to = "/shop" className='bg-yellow-500 rounded-sm shadow-sm px-6 py-4 text-white uppercase hover:opacity-80 hover:cursor-pointer w-full sm:w-auto'>Browse now</Link></div>
         </div>
-        <img src='src\assets\Hero-image.jpg'  className='w-full md:max-w-[50%] rounded-sm shadow-md'/>
+        <img src = {heroImage}  className='w-full md:max-w-[50%] rounded-sm shadow-md'/>
 
         
       </div>
