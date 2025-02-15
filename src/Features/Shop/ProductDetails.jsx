@@ -1,16 +1,34 @@
 import React from 'react'
+import { useState } from 'react';
 import { useFetcher, useLoaderData, useParams } from 'react-router-dom'
 import Loader from '../../ui/Loader';
 import { useEffect } from 'react';
 import { getStoreData } from '../../services/apiStore';
+import { useDispatch } from 'react-redux';
+import {addProduct} from '../Cart/cartSlice'
 
 
 export default function ProductDetails() {
+
+  const [addToCart, setAddToCart] = useState(false);
+  const dispatch = useDispatch();
   const products = useLoaderData();
   const {productId} = useParams();
   console.log(productId)
   const product = products.find(item => item.id === Number(productId.replace(":", "")) );
   const {title, image, category, price, description} = product
+  function handleClick() { 
+    if(!product) return;
+    const newProduct = {
+      ...product, 
+      quantity: 1,
+      totalPrice: product.price
+    }
+    
+   
+     dispatch(addProduct(newProduct));
+     setAddToCart(true);
+  }
   
 
  
@@ -33,10 +51,12 @@ export default function ProductDetails() {
                <h4 className='text-xs  uppercase'>{category}</h4>
                <h1 className='text-2xl md:text-3xl md:max-w-md font-bold'>{title}</h1>
                <h4 className='text-xl font-semibold text-gray-600'>${price}</h4>
-               <div className='mt-6'> 
-               <buton className = "px-6 py-4 border-2 border-yellow focus:outline-none hover:bg-yellow hover:cursor-pointer transition-all duration-300">Add To Cart</buton>
+               <div className=''> 
+               <button onClick = {handleClick} className = "px-6 py-4 border-2 border-yellow focus:outline-none hover:bg-yellow hover:cursor-pointer transition-all duration-300" >Add To Cart</button>
+               {addToCart && <p className='opacity-80 text-gray-600'>Item added to Cart</p>}
                </div>
-               <div className='mt-6'>
+               <div className=''>
+                
                 <h4 className='text-xl font-bold'>Product Description</h4>
                 <p className='md:max-w-md'>{description}</p>
                </div>
